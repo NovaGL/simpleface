@@ -1,9 +1,5 @@
-/*
-I do NOT allow Ashok Kumar. 
-http://challengepost.com/software/super-clock
-*/
-
 #include "pebble.h"
+
 
 Window		*window;
 TextLayer	*time_layer;
@@ -16,10 +12,12 @@ BitmapLayer *watchicon_layer;
 BitmapLayer *batt_layer;
 BitmapLayer *bt_layer;
 
+//////////////////////////// line colour ///////////////////////////////////
 void draw_line(Layer *layer, GContext* ctx) {
-	graphics_context_set_fill_color(ctx, GColorWhite);
+	graphics_context_set_fill_color(ctx, GColorPictonBlue);
 	graphics_fill_rect(ctx, layer_get_bounds(layer), 0, GCornerNone);} 
 
+//////////////////////////// time and date format ////////////////////////////
 static void handle_time_tick(struct tm* tick_time, TimeUnits units_changed) {
 
 	static char time_text[] = "00:00";
@@ -36,10 +34,10 @@ static void handle_time_tick(struct tm* tick_time, TimeUnits units_changed) {
 	
 	text_layer_set_text(time_layer, time_text);
 
-	strftime(date_text, sizeof(date_text), "%y/%m/%d", tick_time); 
+	strftime(date_text, sizeof(date_text), "%d/%m/%y", tick_time); 
 	text_layer_set_text(date_layer, date_text);
 	
-	//dayname
+	/*dayname
 	int wday_flag = tick_time -> tm_wday;
 	//tm_wday: 0(sun) to 6(sat)
 	if		 (wday_flag == 0) {text_layer_set_text(wday_layer, " sun");}
@@ -49,26 +47,27 @@ static void handle_time_tick(struct tm* tick_time, TimeUnits units_changed) {
 	else if  (wday_flag == 4) {text_layer_set_text(wday_layer, " thu");}
 	else if  (wday_flag == 5) {text_layer_set_text(wday_layer, " fri");}
 	else if  (wday_flag == 6) {text_layer_set_text(wday_layer, " sat");}
-	//（一文字目から打ち込んだらwedのwが飛んで表示されたので文字列の頭に半角スペースを挿入して回避している）
+	*/
 }
 
+// bluetooth settings  /////////
 static void handle_bluetooth(bool connected) {
 	if		(connected) {bitmap_layer_set_bitmap(bt_layer, gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BT_1));}
 	else	{bitmap_layer_set_bitmap(bt_layer,gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BT_0));
-			vibes_long_pulse();
+			//vibes_long_pulse();
 			}
 }
 
 //battery
 void handle_battery(BatteryChargeState charge) {
 	
-	// 充電中（時計アイコンを給電中の表示に切り替え、電池残量に応じた電池アイコンを表示）
+	// Charging
 	if (charge.is_charging){
 		
 		bitmap_layer_destroy(batt_layer);
 		bitmap_layer_destroy(bt_layer);
-		bt_layer = bitmap_layer_create(GRect(101, 151, 11, 10));
-		batt_layer = bitmap_layer_create(GRect(114, 151, 14, 10));
+		bt_layer = bitmap_layer_create(GRect(105, 10, 11, 10));
+		batt_layer = bitmap_layer_create(GRect(123, 10, 14, 10));
 		
 		//pebble time用に追記（"#ifdef PBL_COLOR" - "#endif" で分岐する）
 		#ifdef PBL_COLOR
@@ -128,14 +127,14 @@ void handle_battery(BatteryChargeState charge) {
 		bitmap_layer_set_bitmap(watchicon_layer, gbitmap_create_with_resource(RESOURCE_ID_IMAGE_thunder));
 		}
 
-	// 満充電時は給電中の表示からプラグアイコンに切り替える
+	// Plugged in
 	else if (charge.is_plugged){
 		
 		bitmap_layer_destroy(batt_layer);
 		bitmap_layer_destroy(bt_layer);
 		
-		bt_layer = bitmap_layer_create(GRect(101, 151, 11, 10));
-		batt_layer = bitmap_layer_create(GRect(114, 151, 14, 10));
+		bt_layer = bitmap_layer_create(GRect(105, 10, 11, 10));
+		batt_layer = bitmap_layer_create(GRect(123, 10, 14, 10));
 		
 		bitmap_layer_set_bitmap(batt_layer, gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BATT_09));
 		bitmap_layer_set_bitmap(watchicon_layer, gbitmap_create_with_resource(RESOURCE_ID_IMAGE_FULL));
@@ -148,15 +147,15 @@ void handle_battery(BatteryChargeState charge) {
 		bluetooth_connection_service_subscribe(&handle_bluetooth);
 	}
 
-	// 給電していない場合は時計アイコンを表示し、電池残量に応じた電池アイコンを表示する
+	/////////// Icons not Charging
 	else if (! charge.is_charging){
 		bitmap_layer_set_bitmap(watchicon_layer, gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BLANK));
 		
 		bitmap_layer_destroy(batt_layer);
 		bitmap_layer_destroy(bt_layer);
 		
-		bt_layer = bitmap_layer_create(GRect(110, 151, 11, 10));
-		batt_layer = bitmap_layer_create(GRect(123, 151, 14, 10));
+		bt_layer = bitmap_layer_create(GRect(105, 10, 11, 10));
+		batt_layer = bitmap_layer_create(GRect(123, 10, 14, 10));
 		
 		#ifdef PBL_COLOR
 		if (charge.charge_percent > 90){
@@ -219,37 +218,44 @@ void handle_battery(BatteryChargeState charge) {
 	}
 }
 
+//////////////////////////////////////////////// Visuals //////////////////////////////////////////////////////////////////////
 static void do_init(void) {
 	window = window_create();
 	window_stack_push(window, true);
 	window_set_background_color(window, GColorBlack);
 	window_layer = window_get_root_layer(window);
-	
-	GRect line_frame = GRect(8, 120, 139, 2);
-	line_layer = layer_create(line_frame);
-	layer_set_update_proc(line_layer, draw_line);
-	layer_add_child(window_layer, line_layer);
-	
-	time_layer = text_layer_create(GRect(5, 66, 118, 70));
-	text_layer_set_text_color(time_layer, GColorWhite);
+		
+  
+  //Time
+	time_layer = text_layer_create(GRect(17, 40, 118, 70));
+	text_layer_set_text_color(time_layer, GColorVividCerulean);
 	text_layer_set_background_color(time_layer, GColorClear);
-	text_layer_set_font(time_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_font_droid_44)));
-	text_layer_set_text_alignment(time_layer,GTextAlignmentRight);
+	text_layer_set_font(time_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_Font_Prototype_42)));
+	text_layer_set_text_alignment(time_layer,GTextAlignmentCenter);
 	layer_add_child(window_layer, text_layer_get_layer(time_layer));
 	
-	date_layer = text_layer_create(GRect(65, 125, 79, 25));
-	text_layer_set_text_color(date_layer, GColorWhite);
+  // divider
+  GRect line_frame = GRect(25, 100, 100, 2);
+	line_layer = layer_create(line_frame);
+  layer_set_update_proc(line_layer, draw_line);
+	layer_add_child(window_layer, line_layer);
+  
+  //long date
+	date_layer = text_layer_create(GRect(15, 115, 118, 70));
+	text_layer_set_text_color(date_layer, GColorCeleste);
 	text_layer_set_background_color(date_layer, GColorClear);
-	text_layer_set_font(date_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_font_droid_18)));
+  text_layer_set_text_alignment(date_layer,GTextAlignmentCenter);
+	text_layer_set_font(date_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_Font_Prototype_18)));
 	layer_add_child(window_layer, text_layer_get_layer(date_layer));
 	
+  /*week day font
 	wday_layer = text_layer_create(GRect(60, 143, 50, 25));
-	text_layer_set_text_color(wday_layer, GColorWhite);
+	text_layer_set_text_color(wday_layer, GColorWhite); // 
 	text_layer_set_background_color(wday_layer, GColorClear);
 	text_layer_set_font(wday_layer, fonts_load_custom_font(resource_get_handle(RESOURCE_ID_font_droid_18)));
 	layer_add_child(window_layer, text_layer_get_layer(wday_layer));
+	*/
 	
-	//+時間のNULL回避?（わかってない→調べる
 	
 	time_t now = time(NULL);
 	struct tm *current_time = localtime(&now);
@@ -257,14 +263,16 @@ static void do_init(void) {
 	
 	tick_timer_service_subscribe(SECOND_UNIT, &handle_time_tick);
 
-	batt_layer = bitmap_layer_create(GRect(123, 151, 14, 10));
-	layer_add_child(window_layer, bitmap_layer_get_layer(batt_layer)); //親レイヤに載せる 
+	batt_layer = bitmap_layer_create(GRect(123, 10, 100, 100));
+	layer_add_child(window_layer, bitmap_layer_get_layer(batt_layer)); 
 	
+  /*
 	watchicon_layer = bitmap_layer_create(GRect(131, 151, 6, 10));
 	layer_add_child(window_layer, bitmap_layer_get_layer(watchicon_layer));
 	bitmap_layer_set_background_color(watchicon_layer, GColorClear);
-	
-	bt_layer = bitmap_layer_create(GRect(110, 151, 11, 10));
+	*/
+  
+	bt_layer = bitmap_layer_create(GRect(100, 10, 50, 10));
 	layer_add_child(window_layer, bitmap_layer_get_layer(bt_layer));
 	
 	handle_battery(battery_state_service_peek());

@@ -3,11 +3,63 @@
     "capabilities": [
         ""
     ],
-    "companyName": "noondaymoon",
-    "longName": "noondaymoon",
+    "companyName": "NovaG",
+    "longName": "Simpleface",
     "projectType": "native",
     "resources": {
         "media": [
+            {
+                "characterRegex": "[0-9:.]",
+                "file": "fonts/Prototype.ttf",
+                "name": "Font_Prototype_42",
+                "targetPlatforms": null,
+                "trackingAdjust": 1,
+                "type": "font"
+            },
+            {
+                "characterRegex": "[0-9,adefhimnorstuw,/, ]",
+                "file": "fonts/Prototype.ttf",
+                "name": "Font_Prototype_18",
+                "targetPlatforms": null,
+                "type": "font"
+            },
+            {
+                "file": "images/watch.png",
+                "name": "IMAGE_watchicon",
+                "type": "png"
+            },
+            {
+                "file": "images/thunder.png",
+                "name": "IMAGE_thunder",
+                "type": "png"
+            },
+            {
+                "file": "images/menu_icon_noondaymoon.png",
+                "menuIcon": true,
+                "name": "IMAGE_MENU_ICON",
+                "targetPlatforms": null,
+                "type": "png"
+            },
+            {
+                "file": "images/full.png",
+                "name": "IMAGE_FULL",
+                "type": "png"
+            },
+            {
+                "file": "images/bt_1.png",
+                "name": "IMAGE_BT_1",
+                "type": "png"
+            },
+            {
+                "file": "images/bt_0.png",
+                "name": "IMAGE_BT_0",
+                "type": "png"
+            },
+            {
+                "file": "images/blank.png",
+                "name": "IMAGE_BLANK",
+                "type": "png"
+            },
             {
                 "file": "images/batt_29.png",
                 "name": "IMAGE_BATT_29",
@@ -44,27 +96,6 @@
                 "type": "png"
             },
             {
-                "file": "images/thunder.png",
-                "name": "IMAGE_thunder",
-                "type": "png"
-            },
-            {
-                "file": "images/blank.png",
-                "name": "IMAGE_BLANK",
-                "type": "png"
-            },
-            {
-                "file": "images/full.png",
-                "name": "IMAGE_FULL",
-                "type": "png"
-            },
-            {
-                "file": "images/menu_icon_noondaymoon.png",
-                "menuIcon": true,
-                "name": "IMAGE_MENU_ICON",
-                "type": "png"
-            },
-            {
                 "file": "images/batt_12.png",
                 "name": "IMAGE_BATT_12",
                 "type": "png"
@@ -77,11 +108,6 @@
             {
                 "file": "images/batt_10.png",
                 "name": "IMAGE_BATT_10",
-                "type": "png"
-            },
-            {
-                "file": "images/watch.png",
-                "name": "IMAGE_watchicon",
                 "type": "png"
             },
             {
@@ -135,21 +161,10 @@
                 "type": "png"
             },
             {
-                "file": "images/bt_1.png",
-                "name": "IMAGE_BT_1",
-                "type": "png"
-            },
-            {
-                "file": "images/bt_0.png",
-                "name": "IMAGE_BT_0",
-                "type": "png"
-            },
-            {
-                "characterRegex": "[0-9,:]",
-                "compatibility": "2.7",
+                "characterRegex": "[0-9,adefhimnorstuw,/, ]",
                 "file": "fonts/DroidSans.ttf",
-                "name": "font_droid_44",
-                "trackingAdjust": 1,
+                "name": "font_droid_26",
+                "targetPlatforms": null,
                 "type": "font"
             },
             {
@@ -157,18 +172,34 @@
                 "compatibility": "2.7",
                 "file": "fonts/DroidSans.ttf",
                 "name": "font_droid_18",
+                "targetPlatforms": null,
+                "type": "font"
+            },
+            {
+                "characterRegex": "[0-9,:]",
+                "file": "fonts/DroidSans.ttf",
+                "name": "font_droid_44",
+                "targetPlatforms": null,
+                "trackingAdjust": 1,
+                "type": "font"
+            },
+            {
+                "characterRegex": "[0-9,adefhimnorstuw,/, ]",
+                "file": "fonts/DroidSans.ttf",
+                "name": "font_droid_22",
+                "targetPlatforms": null,
+                "trackingAdjust": 1,
                 "type": "font"
             }
         ]
     },
     "sdkVersion": "3",
-    "shortName": "noondaymoon",
+    "shortName": "Simpleface",
     "targetPlatforms": [
         "aplite",
         "basalt"
     ],
     "uuid": "56f14240-1bd3-40e5-b736-2a0a74bae921",
-    "versionCode": 1,
     "versionLabel": "2.0",
     "watchapp": {
         "watchface": true
