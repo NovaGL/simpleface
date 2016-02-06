@@ -1,7 +1,15 @@
 {
-    "appKeys": {},
+    "appKeys": {
+        "KEY_BT_FORMAT": 1,
+        "KEY_COLOR_BLUE": 6,
+        "KEY_COLOR_GREEN": 5,
+        "KEY_COLOR_RED": 4,
+        "KEY_DATE_FORMAT": 0,
+        "KEY_VIBE_ON_CONNECT": 3,
+        "KEY_VIBE_ON_DISCONNECT": 2
+    },
     "capabilities": [
-        ""
+        "configurable"
     ],
     "companyName": "NovaG",
     "longName": "Simpleface",
@@ -197,7 +205,8 @@
     "shortName": "Simpleface",
     "targetPlatforms": [
         "aplite",
-        "basalt"
+        "basalt",
+        "chalk"
     ],
     "uuid": "56f14240-1bd3-40e5-b736-2a0a74bae921",
     "versionLabel": "2.0",
