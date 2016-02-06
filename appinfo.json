@@ -1,7 +1,7 @@
 {
     "appKeys": {
         "KEY_BT_FORMAT": 1,
-        "KEY_COLOR_BLUE": 6,
+        "KEY_COLOR_BLUE": 5,
         "KEY_COLOR_GREEN": 5,
         "KEY_COLOR_RED": 4,
         "KEY_DATE_FORMAT": 0,
@@ -12,10 +12,41 @@
         "configurable"
     ],
     "companyName": "NovaG",
+    "enableMultiJS": false,
     "longName": "Simpleface",
     "projectType": "native",
     "resources": {
         "media": [
+            {
+                "file": "images/batt_22.png",
+                "name": "IMAGE_BATT_22",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/batt_21.png",
+                "name": "IMAGE_BATT_21",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/batt_30.png",
+                "name": "IMAGE_BATT_30",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/batt_31.png",
+                "name": "IMAGE_BATT_31",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
+            {
+                "file": "images/batt_32.png",
+                "name": "IMAGE_BATT_32",
+                "targetPlatforms": null,
+                "type": "bitmap"
+            },
             {
                 "characterRegex": "[0-9:.]",
                 "file": "fonts/Prototype.ttf",
@@ -25,9 +56,8 @@
                 "type": "font"
             },
             {
-                "characterRegex": "[0-9,adefhimnorstuw,/, ]",
                 "file": "fonts/Prototype.ttf",
-                "name": "Font_Prototype_18",
+                "name": "Font_Prototype_20",
                 "targetPlatforms": null,
                 "type": "font"
             },
@@ -208,8 +238,8 @@
         "basalt",
         "chalk"
     ],
-    "uuid": "56f14240-1bd3-40e5-b736-2a0a74bae921",
-    "versionLabel": "2.0",
+    "uuid": "8a135df1-7c83-48b8-b902-4a7d4c7288e3",
+    "versionLabel": "2.5",
     "watchapp": {
         "watchface": true
     }
